@@ -11,11 +11,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
+import com.example.spendwise.model.BottomNavigationItemUiContent
 import com.example.spendwise.navigation.SpendWiseNavGraph
 
 @Composable
 fun SpendWiseScaffold(
-    bottomBarItems: List<BottomNavigationItem>,
+    bottomBarItems: List<BottomNavigationItemUiContent>,
     showTopBar: Boolean = true,
     showBottomBar: Boolean = true,
 ) {
