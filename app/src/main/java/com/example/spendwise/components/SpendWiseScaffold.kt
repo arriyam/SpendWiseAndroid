@@ -14,7 +14,11 @@ import androidx.navigation.compose.rememberNavController
 import com.example.spendwise.navigation.SpendWiseNavGraph
 
 @Composable
-fun SpendWiseScaffold(showTopBar: Boolean = true, showBottomBar: Boolean = true) {
+fun SpendWiseScaffold(
+    bottomBarItems: List<BottomNavigationItem>,
+    showTopBar: Boolean = true,
+    showBottomBar: Boolean = true,
+) {
     val navController = rememberNavController()
     var currentTabIndex by remember { mutableIntStateOf(0) }
     var showTopBar by remember { mutableStateOf(showTopBar) }
@@ -25,7 +29,7 @@ fun SpendWiseScaffold(showTopBar: Boolean = true, showBottomBar: Boolean = true)
         topBar = { if (showTopBar) SpendWiseTopAppBar() },
         bottomBar = {
             if (showBottomBar) {
-                SpendWiseBottomBar(currentItemIndex = currentTabIndex) { navigationRoute ->
+                SpendWiseBottomBar(currentItemIndex = currentTabIndex, items = bottomBarItems) { navigationRoute ->
                     currentTabIndex = navigationRoute.currentTabIndex
                     navController.navigate(navigationRoute)
                 }

@@ -28,27 +28,12 @@ data class BottomNavigationItem(
 )
 
 @Composable
-fun SpendWiseBottomBar(modifier: Modifier = Modifier, currentItemIndex: Int = 0, navigateToScreen: (NavigationRoute) -> Unit) {
-    val items = listOf(
-        BottomNavigationItem(
-            title = "Summary",
-            selectedIcon = Icons.Filled.Person,
-            unselectedIcon = Icons.Outlined.Person,
-            navigationRoute = NavigationRoute.HomeScreen,
-        ),
-        BottomNavigationItem(
-            title = "Transactions",
-            selectedIcon = Icons.AutoMirrored.Filled.List,
-            unselectedIcon = Icons.AutoMirrored.Outlined.List,
-            navigationRoute = NavigationRoute.ListScreen,
-        ),
-        BottomNavigationItem(
-            title = "Add",
-            selectedIcon = Icons.Filled.Add,
-            unselectedIcon = Icons.Outlined.Add,
-            navigationRoute = NavigationRoute.SettingScreen,
-        ),
-    )
+fun SpendWiseBottomBar(
+    modifier: Modifier = Modifier,
+    items: List<BottomNavigationItem>,
+    currentItemIndex: Int = 0,
+    navigateToScreen: (NavigationRoute) -> Unit) {
+
     var selectedItemIndex by remember { mutableIntStateOf(0) }
     selectedItemIndex = currentItemIndex
     NavigationBar {
