@@ -1,12 +1,5 @@
 package com.example.spendwise.components
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.List
-import androidx.compose.material.icons.automirrored.outlined.List
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.outlined.Add
-import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -17,20 +10,13 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
+import com.example.spendwise.model.BottomNavigationItemUiContent
 import com.example.spendwise.navigation.NavigationRoute
-
-data class BottomNavigationItem(
-    val title: String,
-    val selectedIcon: ImageVector,
-    val unselectedIcon: ImageVector,
-    val navigationRoute: NavigationRoute,
-)
 
 @Composable
 fun SpendWiseBottomBar(
     modifier: Modifier = Modifier,
-    items: List<BottomNavigationItem>,
+    items: List<BottomNavigationItemUiContent>,
     currentItemIndex: Int = 0,
     navigateToScreen: (NavigationRoute) -> Unit) {
 
