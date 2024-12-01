@@ -29,7 +29,7 @@ data class BottomNavigationItem(
 )
 
 @Composable
-fun SpendWiseBottomBar(modifier: Modifier = Modifier, navigateToScreen: (NavigationRoute) -> Unit) {
+fun SpendWiseBottomBar(modifier: Modifier = Modifier, currentItemIndex: Int = 0, navigateToScreen: (NavigationRoute) -> Unit) {
     val items = listOf(
         BottomNavigationItem(
             title = "Home",
@@ -51,18 +51,20 @@ fun SpendWiseBottomBar(modifier: Modifier = Modifier, navigateToScreen: (Navigat
         ),
     )
     var selectedItemIndex by remember { mutableIntStateOf(0) }
+    selectedItemIndex = currentItemIndex
     NavigationBar {
         items.forEachIndexed { index, item ->
             NavigationBarItem(
                 selected = selectedItemIndex == index,
                 onClick = {
                     selectedItemIndex = index
+                    item.navigationRoute.currentTabIndex = selectedItemIndex
                     navigateToScreen(item.navigationRoute)
                 },
                 label = {
                     Text(text = item.title)
                 },
-                alwaysShowLabel = false,
+                alwaysShowLabel = true,
                 icon = {
                     Icon(
                         imageVector = if (index == selectedItemIndex) {

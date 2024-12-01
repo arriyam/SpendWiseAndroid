@@ -11,17 +11,16 @@ import com.example.spendwise.components.SpendWiseTopAppBar
 import com.example.spendwise.viewmodel.HomeViewModel
 import org.koin.androidx.compose.koinViewModel
 
-
-sealed class HomeState(
+sealed class ListState(
     var currentTabIndex: Int = 0,
 ) {
-    data object Loading: HomeState()
-    data class Success(val country: String): HomeState()
-    data class Error(val message: String): HomeState()
+    data object Loading: ListState()
+    data class Success(val items: List<String>): ListState()
+    data class Error(val message: String): ListState()
 }
 
 @Composable
-fun HomeScreen(
+fun ListScreen(
     modifier: Modifier = Modifier,
     currentTabIndex: Int,
     navigateToScreen: (NavigationRoute) -> Unit,
@@ -29,21 +28,24 @@ fun HomeScreen(
     val viewModel = koinViewModel<HomeViewModel>()
     val state = viewModel.homeState.value
     state.currentTabIndex = currentTabIndex
-    HomeScreenContent(modifier = modifier, state = state, navigateToScreen = navigateToScreen)
+    ListScreenContent(modifier = modifier, state = state, navigateToScreen = navigateToScreen)
 }
 
 
 @Composable
-fun HomeScreenContent(modifier: Modifier = Modifier, state: HomeState, navigateToScreen: (NavigationRoute) -> Unit) {
+fun ListScreenContent(
+    modifier: Modifier = Modifier,
+    state: HomeState,
+    navigateToScreen: (NavigationRoute) -> Unit) {
     Scaffold(
         modifier = modifier,
         topBar = { SpendWiseTopAppBar() },
         content = { contentPadding ->
-            Text(text = "Home Screen", modifier = Modifier.padding(contentPadding))
+            Text(text = "List Screen", modifier = Modifier.padding(contentPadding))
 //            when(state){
-//                is HomeState.Loading -> Text(text = "Loading", modifier = Modifier.padding(contentPadding))
-//                is HomeState.Error -> Text(text = state.message, modifier = Modifier.padding(contentPadding))
-//                is HomeState.Success -> Text(text = state.country, modifier = Modifier.padding(contentPadding))
+//                is ListState.Loading -> Text(text = "Loading", modifier = Modifier.padding(contentPadding))
+//                is ListState.Error -> Text(text = state.message, modifier = Modifier.padding(contentPadding))
+//                is ListState.Success -> Text(text = state.items.joinToString(), modifier = Modifier.padding(contentPadding))
 //            }
         },
         bottomBar = { SpendWiseBottomBar(navigateToScreen = navigateToScreen, currentItemIndex = state.currentTabIndex ) }

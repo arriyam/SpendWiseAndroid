@@ -7,8 +7,12 @@ import androidx.activity.enableEdgeToEdge
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.toRoute
 import com.example.spendwise.ui.theme.SpendWiseTheme
 import com.example.spendwise.view.HomeScreen
+import com.example.spendwise.view.ListScreen
+import com.example.spendwise.view.SettingScreen
+import kotlinx.serialization.Serializable
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,7 +24,22 @@ class MainActivity : ComponentActivity() {
 
                 NavHost(navController = navController, startDestination = NavigationRoute.HomeScreen) {
                     composable<NavigationRoute.HomeScreen> {
-                        HomeScreen()
+                        val args = it.toRoute<NavigationRoute.HomeScreen>()
+                        HomeScreen(currentTabIndex = args.currentTabIndex){
+                            navController.navigate(it)
+                        }
+                    }
+                    composable<NavigationRoute.ListScreen> {
+                        val args = it.toRoute<NavigationRoute.ListScreen>()
+                        ListScreen(currentTabIndex = args.currentTabIndex){
+                            navController.navigate(it)
+                        }
+                    }
+                    composable<NavigationRoute.SettingScreen> {
+                        val args = it.toRoute<NavigationRoute.SettingScreen>()
+                        SettingScreen(currentTabIndex = args.currentTabIndex) {
+                            navController.navigate(it)
+                        }
                     }
                 }
             }
@@ -28,8 +47,14 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-sealed interface NavigationRoute {
-    data object HomeScreen : NavigationRoute
-    data object ListScreen : NavigationRoute
-    data object SettingScreen : NavigationRoute
+@Serializable
+sealed class NavigationRoute(
+    var currentTabIndex: Int = 0
+) {
+    @Serializable
+    data object HomeScreen : NavigationRoute()
+    @Serializable
+    data object ListScreen : NavigationRoute()
+    @Serializable
+    data object SettingScreen : NavigationRoute()
 }

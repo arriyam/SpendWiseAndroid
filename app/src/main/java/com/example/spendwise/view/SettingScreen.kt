@@ -11,17 +11,16 @@ import com.example.spendwise.components.SpendWiseTopAppBar
 import com.example.spendwise.viewmodel.HomeViewModel
 import org.koin.androidx.compose.koinViewModel
 
-
-sealed class HomeState(
+sealed class SettingState(
     var currentTabIndex: Int = 0,
 ) {
-    data object Loading: HomeState()
-    data class Success(val country: String): HomeState()
-    data class Error(val message: String): HomeState()
+    data object Loading: SettingState()
+    data class Success(val settings: Map<String, String>): SettingState()
+    data class Error(val message: String): SettingState()
 }
 
 @Composable
-fun HomeScreen(
+fun SettingScreen(
     modifier: Modifier = Modifier,
     currentTabIndex: Int,
     navigateToScreen: (NavigationRoute) -> Unit,
@@ -29,21 +28,21 @@ fun HomeScreen(
     val viewModel = koinViewModel<HomeViewModel>()
     val state = viewModel.homeState.value
     state.currentTabIndex = currentTabIndex
-    HomeScreenContent(modifier = modifier, state = state, navigateToScreen = navigateToScreen)
+    SettingScreenContent(modifier = modifier, state = state, navigateToScreen = navigateToScreen)
 }
 
 
 @Composable
-fun HomeScreenContent(modifier: Modifier = Modifier, state: HomeState, navigateToScreen: (NavigationRoute) -> Unit) {
+fun SettingScreenContent(modifier: Modifier = Modifier, state: HomeState, navigateToScreen: (NavigationRoute)-> Unit) {
     Scaffold(
         modifier = modifier,
         topBar = { SpendWiseTopAppBar() },
         content = { contentPadding ->
-            Text(text = "Home Screen", modifier = Modifier.padding(contentPadding))
+            Text(text = "Setting Screen", modifier = Modifier.padding(contentPadding))
 //            when(state){
-//                is HomeState.Loading -> Text(text = "Loading", modifier = Modifier.padding(contentPadding))
-//                is HomeState.Error -> Text(text = state.message, modifier = Modifier.padding(contentPadding))
-//                is HomeState.Success -> Text(text = state.country, modifier = Modifier.padding(contentPadding))
+//                is SettingState.Loading -> Text(text = "Loading", modifier = Modifier.padding(contentPadding))
+//                is SettingState.Error -> Text(text = state.message, modifier = Modifier.padding(contentPadding))
+//                is SettingState.Success -> Text(text = state.settings.entries.joinToString { "${it.key}: ${it.value}" }, modifier = Modifier.padding(contentPadding))
 //            }
         },
         bottomBar = { SpendWiseBottomBar(navigateToScreen = navigateToScreen, currentItemIndex = state.currentTabIndex ) }
