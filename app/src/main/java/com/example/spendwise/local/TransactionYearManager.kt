@@ -1,11 +1,12 @@
 package com.example.spendwise.local
 
+import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
 
-class TransactionYearManager(context: Context) {
+class TransactionYearManager(app: Application) {
     private val sharedPreferences: SharedPreferences =
-        context.getSharedPreferences("transaction_year_prefs", Context.MODE_PRIVATE)
+        app.getSharedPreferences("transaction_year_prefs", Context.MODE_PRIVATE)
 
     private val yearsKey = "years_key"
     private val isInitializedKey = "years_initialized"

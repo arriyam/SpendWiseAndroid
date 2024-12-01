@@ -1,11 +1,12 @@
 package com.example.spendwise.local
 
+import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
 
-class CategoryManager(context: Context) {
+class CategoryManager(app: Application) {
     private val sharedPreferences: SharedPreferences =
-        context.getSharedPreferences("categories_prefs", Context.MODE_PRIVATE)
+        app.getSharedPreferences("categories_prefs", Context.MODE_PRIVATE)
 
     private val categoriesKey = "categories_key"
     private val isInitializedKey = "categories_initialized"
@@ -57,10 +58,5 @@ class CategoryManager(context: Context) {
             .putStringSet(categoriesKey, getDefaultCategories())
             .putBoolean(isInitializedKey, true)
             .apply()
-    }
-
-    companion object {
-        private const val CATEGORIES_KEY = "categories_key"
-        private const val IS_INITIALIZED_KEY = "categories_initialized"
     }
 }

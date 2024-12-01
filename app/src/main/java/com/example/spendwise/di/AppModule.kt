@@ -6,6 +6,7 @@ import com.example.spendwise.local.AppDatabase
 import com.example.spendwise.local.CategoryManager
 import com.example.spendwise.local.TransactionDao
 import com.example.spendwise.local.TransactionYearManager
+import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module
 
 val appModule = module {
@@ -18,6 +19,6 @@ val appModule = module {
     }
 
     single<TransactionDao> { get<AppDatabase>().transactionDao() }
-    single { (context: Context) -> CategoryManager(context) }
-    single { (context: Context) -> TransactionYearManager(context) }
+    single { CategoryManager(androidApplication()) }
+    single { TransactionYearManager(get()) }
 }
