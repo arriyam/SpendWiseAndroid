@@ -20,6 +20,9 @@ interface TransactionDao {
     @Query("SELECT * FROM transactions")
     suspend fun getAllTransactions(): List<TransactionEntity>
 
+    @Query("SELECT * FROM transactions WHERE date BETWEEN :startDate AND :endDate")
+    suspend fun getTransactionsBetweenDates(startDate: Long, endDate: Long): List<TransactionEntity>
+
     @Query("""
         SELECT * FROM transactions
         WHERE (:year IS NULL OR strftime('%Y', date / 1000, 'unixepoch') = :year)
@@ -32,8 +35,5 @@ interface TransactionDao {
         month: String? = null,
         category: String? = null
     ): List<TransactionEntity>
-
-    @Query("SELECT * FROM transactions WHERE date BETWEEN :startDate AND :endDate")
-    suspend fun getTransactionsBetweenDates(startDate: Long, endDate: Long): List<TransactionEntity>
 }
 
