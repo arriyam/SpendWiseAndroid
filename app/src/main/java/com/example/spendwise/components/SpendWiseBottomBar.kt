@@ -3,10 +3,10 @@ package com.example.spendwise.components
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material.icons.automirrored.outlined.List
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material.icons.outlined.Home
-import androidx.compose.material.icons.outlined.Settings
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.outlined.Add
+import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -31,21 +31,21 @@ data class BottomNavigationItem(
 fun SpendWiseBottomBar(modifier: Modifier = Modifier, currentItemIndex: Int = 0, navigateToScreen: (NavigationRoute) -> Unit) {
     val items = listOf(
         BottomNavigationItem(
-            title = "Home",
-            selectedIcon = Icons.Filled.Home,
-            unselectedIcon = Icons.Outlined.Home,
+            title = "Summary",
+            selectedIcon = Icons.Filled.Person,
+            unselectedIcon = Icons.Outlined.Person,
             navigationRoute = NavigationRoute.HomeScreen,
         ),
         BottomNavigationItem(
-            title = "List",
+            title = "Transactions",
             selectedIcon = Icons.AutoMirrored.Filled.List,
             unselectedIcon = Icons.AutoMirrored.Outlined.List,
             navigationRoute = NavigationRoute.ListScreen,
         ),
         BottomNavigationItem(
-            title = "Settings",
-            selectedIcon = Icons.Filled.Settings,
-            unselectedIcon = Icons.Outlined.Settings,
+            title = "Add",
+            selectedIcon = Icons.Filled.Add,
+            unselectedIcon = Icons.Outlined.Add,
             navigationRoute = NavigationRoute.SettingScreen,
         ),
     )

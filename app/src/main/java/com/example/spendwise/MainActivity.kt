@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import com.example.spendwise.navigation.SpendWiseNavGraph
+import com.example.spendwise.components.SpendWiseScaffold
 import com.example.spendwise.ui.theme.SpendWiseTheme
 
 class MainActivity : ComponentActivity() {
@@ -13,7 +13,10 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             SpendWiseTheme {
-                SpendWiseNavGraph()
+                SpendWiseScaffold(
+                    showTopBar = true,
+                    showBottomBar = true,
+                )
             }
         }
     }
