@@ -7,6 +7,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.spendwise.components.CategoryDropdown
 import com.example.spendwise.components.DeleteDialog
@@ -48,7 +49,6 @@ fun TransactionListScreenContent(
     onDeleteTransaction: (Transaction) -> Unit,
     onCategorySelected: (String?) -> Unit
 ) {
-    val context = LocalContext.current
     var selectedCategory by remember { mutableStateOf<String?>(null) }
     var transactionToDelete by remember { mutableStateOf<Transaction?>(null) }
 
@@ -57,6 +57,14 @@ fun TransactionListScreenContent(
             .fillMaxSize()
             .padding(16.dp)
     ) {
+        Text(
+            text = "Transactions",
+            style = MaterialTheme.typography.titleMedium,
+            textAlign = TextAlign.Center,
+            modifier = Modifier.fillMaxWidth()
+        )
+        Spacer(modifier = Modifier.height(16.dp))
+
         CategoryDropdown(
             categories = categories,
             selectedCategory = selectedCategory,
