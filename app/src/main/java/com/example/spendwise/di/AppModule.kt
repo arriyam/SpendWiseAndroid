@@ -28,6 +28,6 @@ val appModule = module {
     single { TransactionYearManager(androidApplication()) }
     single<TransactionRepository> { TransactionRepositoryImpl(get()) }
     viewModel { CategoryViewModel(get()) }
-    viewModel { AddTransactionViewModel() }
+    viewModel { AddTransactionViewModel(get(),get()) }
     viewModel { TransactionListViewModel() }
 }
