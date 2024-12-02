@@ -5,9 +5,9 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.spendwise.view.HomeScreen
+import com.example.spendwise.view.SummaryScreen
 import com.example.spendwise.view.ListScreen
-import com.example.spendwise.view.SettingScreen
+import com.example.spendwise.view.AddScreen
 
 @Composable
 fun SpendWiseNavGraph(
@@ -16,17 +16,17 @@ fun SpendWiseNavGraph(
 ) {
     NavHost(
         navController = navController,
-        startDestination = NavigationRoute.HomeScreen,
+        startDestination = NavigationRoute.SummaryScreen,
         modifier = modifier
     ) {
-        composable<NavigationRoute.HomeScreen> {
-            HomeScreen()
+        composable<NavigationRoute.SummaryScreen> {
+            SummaryScreen()
         }
         composable<NavigationRoute.ListScreen> {
             ListScreen()
         }
-        composable<NavigationRoute.SettingScreen> {
-            SettingScreen()
+        composable<NavigationRoute.AddScreen> {
+            AddScreen()
         }
     }
 }

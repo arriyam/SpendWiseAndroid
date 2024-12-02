@@ -16,7 +16,7 @@ object BottomNavigationItemProvider {
             title = "Summary",
             selectedIcon = Icons.Filled.Face,
             unselectedIcon = Icons.Outlined.Face,
-            navigationRoute = NavigationRoute.HomeScreen,
+            navigationRoute = NavigationRoute.SummaryScreen,
         ),
         BottomNavigationItemUiContent(
             title = "Transactions",
@@ -28,7 +28,7 @@ object BottomNavigationItemProvider {
             title = "Add",
             selectedIcon = Icons.Filled.Add,
             unselectedIcon = Icons.Outlined.Add,
-            navigationRoute = NavigationRoute.SettingScreen,
+            navigationRoute = NavigationRoute.AddScreen,
         )
     )
 }

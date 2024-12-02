@@ -4,17 +4,17 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.spendwise.view.HomeState
+import com.example.spendwise.view.AddState
 import kotlinx.coroutines.launch
 
-class HomeViewModel: ViewModel() {
+class AddViewModel: ViewModel() {
 
-    private val _homeState = mutableStateOf<HomeState>(HomeState.Loading)
-    val homeState: MutableState<HomeState> = _homeState
+    private val _addState = mutableStateOf<AddState>(AddState.Loading)
+    val addState: MutableState<AddState> = _addState
 
     init {
         viewModelScope.launch {
-            _homeState.value = HomeState.Success("India")
+            _addState.value = AddState.Success("India")
         }
     }
 }

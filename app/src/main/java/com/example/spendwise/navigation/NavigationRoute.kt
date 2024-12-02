@@ -7,9 +7,9 @@ sealed class NavigationRoute(
     var currentTabIndex: Int = 0
 ) {
     @Serializable
-    data object HomeScreen : NavigationRoute()
+    data object SummaryScreen : NavigationRoute()
     @Serializable
     data object ListScreen : NavigationRoute()
     @Serializable
-    data object SettingScreen : NavigationRoute()
+    data object AddScreen : NavigationRoute()
 }

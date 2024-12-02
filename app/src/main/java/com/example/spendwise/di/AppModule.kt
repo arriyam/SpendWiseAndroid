@@ -8,7 +8,7 @@ import com.example.spendwise.local.TransactionDao
 import com.example.spendwise.local.TransactionYearManager
 import com.example.spendwise.repository.TransactionRepository
 import com.example.spendwise.repository.TransactionRepositoryImpl
-import com.example.spendwise.viewmodel.HomeViewModel
+import com.example.spendwise.viewmodel.SummaryViewModel
 import org.koin.android.ext.koin.androidApplication
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
@@ -26,5 +26,5 @@ val appModule = module {
     single { CategoryManager(androidApplication()) }
     single { TransactionYearManager(get()) }
     single<TransactionRepository> { TransactionRepositoryImpl(get()) }
-    viewModel { HomeViewModel() }
+    viewModel { SummaryViewModel() }
 }
