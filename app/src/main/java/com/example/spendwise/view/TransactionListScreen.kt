@@ -61,13 +61,18 @@ fun TransactionListScreenContent(
     var selectedCategory by remember { mutableStateOf<String?>(null) }
     var transactionToDelete by remember { mutableStateOf<Transaction?>(null) }
 
+    val totalAmount = when (state) {
+        is TransactionListState.Success -> state.items.sumOf { it.amountInDollars() }
+        else -> 0.0
+    }
+
     Column(
         modifier = modifier
             .fillMaxSize()
             .padding(16.dp)
     ) {
         Text(
-            text = "Transactions",
+            text = "Total: $${"%.2f".format(totalAmount)}",
             style = MaterialTheme.typography.titleMedium,
             textAlign = TextAlign.Center,
             modifier = Modifier.fillMaxWidth()

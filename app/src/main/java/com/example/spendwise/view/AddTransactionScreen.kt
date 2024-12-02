@@ -69,6 +69,7 @@ fun AddTransactionScreenContent(
     var amount by remember { mutableStateOf("") }
     var selectedCategory by remember { mutableStateOf<String?>(null) }
 
+
     Column(
         modifier = modifier
             .fillMaxSize()
