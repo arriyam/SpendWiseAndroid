@@ -13,22 +13,22 @@ import com.example.spendwise.navigation.NavigationRoute
 object BottomNavigationItemProvider {
     fun getItems(): List<BottomNavigationItemUiContent> = listOf(
         BottomNavigationItemUiContent(
-            title = "Categories",
-            selectedIcon = Icons.Filled.Create,
-            unselectedIcon = Icons.Outlined.Create,
-            navigationRoute = NavigationRoute.SummaryScreen,
-        ),
-        BottomNavigationItemUiContent(
             title = "Transactions",
             selectedIcon = Icons.AutoMirrored.Filled.List,
             unselectedIcon = Icons.AutoMirrored.Outlined.List,
-            navigationRoute = NavigationRoute.ListScreen,
+            navigationRoute = NavigationRoute.TransactionListScreen,
+        ),
+        BottomNavigationItemUiContent(
+            title = "Categories",
+            selectedIcon = Icons.Filled.Create,
+            unselectedIcon = Icons.Outlined.Create,
+            navigationRoute = NavigationRoute.CategoryScreen,
         ),
         BottomNavigationItemUiContent(
             title = "Add",
             selectedIcon = Icons.Filled.Add,
             unselectedIcon = Icons.Outlined.Add,
-            navigationRoute = NavigationRoute.AddScreen,
+            navigationRoute = NavigationRoute.AddTransactionScreen,
         )
     )
 }

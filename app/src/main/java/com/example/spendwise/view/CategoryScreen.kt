@@ -22,5 +22,5 @@ fun CategoryScreen(modifier: Modifier = Modifier) {
 
 @Composable
 fun CategoryScreenContent(modifier: Modifier = Modifier, state: CategoryState) {
-    Text(text = "Home Screen", modifier = modifier)
+    Text(text = "Category Screen", modifier = modifier)
 }

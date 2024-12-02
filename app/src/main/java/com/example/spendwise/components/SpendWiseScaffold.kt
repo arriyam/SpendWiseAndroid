@@ -12,6 +12,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
 import com.example.spendwise.model.BottomNavigationItemUiContent
+import com.example.spendwise.navigation.NavigationRoute
 import com.example.spendwise.navigation.SpendWiseNavGraph
 
 @Composable
@@ -39,6 +40,7 @@ fun SpendWiseScaffold(
         content = { innerPadding ->
             SpendWiseNavGraph(
                 navController = navController,
+                startDestination = NavigationRoute.TransactionListScreen,
                 modifier = Modifier.padding(innerPadding)
             )
         }
