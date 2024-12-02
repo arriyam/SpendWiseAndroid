@@ -21,7 +21,7 @@ class CategoryViewModel(
     private fun loadCategories() {
         viewModelScope.launch {
             val categories = categoryManager.getCategories()
-            _categoryState.value = CategoryState.Success(categories.joinToString(","))
+            _categoryState.value = CategoryState.Success(categories)
         }
     }
 

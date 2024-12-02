@@ -7,8 +7,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.CircularProgressIndicator
@@ -18,17 +16,23 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.example.spendwise.components.CategoryItem
+import com.example.spendwise.components.AddCategoryDialog
+import com.example.spendwise.components.CategoryList
+import com.example.spendwise.components.DeleteDialog
 import com.example.spendwise.viewmodel.CategoryViewModel
 import org.koin.androidx.compose.koinViewModel
 
 sealed interface CategoryState{
     data object Loading: CategoryState
-    data class Success(val summary: String): CategoryState
+    data class Success(val categories: List<String>): CategoryState
     data class Error(val message: String): CategoryState
 }
 
@@ -53,10 +57,14 @@ fun CategoryScreenContent(
     onAddCategory: (String) -> Unit,
     onRemoveCategory: (String) -> Unit
 ) {
+    var showAddDialog by remember { mutableStateOf(false) }
+    var showDeleteDialog by remember { mutableStateOf(false) }
+    var categoryToDelete by remember { mutableStateOf("") }
+
     Scaffold(
         modifier = modifier,
         floatingActionButton = {
-            FloatingActionButton(onClick = { /* Handle Add Category */ }) {
+            FloatingActionButton(onClick = { showAddDialog = true }) {
                 Icon(imageVector = Icons.Filled.Add, contentDescription = "Add")
             }
         },
@@ -79,14 +87,13 @@ fun CategoryScreenContent(
                         CircularProgressIndicator()
                     }
                     is CategoryState.Success -> {
-                        LazyColumn {
-                            items(state.summary.split(",")) { category ->
-                                CategoryItem(
-                                    categoryName = category,
-                                    onRemoveCategory = onRemoveCategory
-                                )
+                        CategoryList(
+                            categories = state.categories,
+                            onRemoveCategory = { category ->
+                                categoryToDelete = category
+                                showDeleteDialog = true
                             }
-                        }
+                        )
                     }
                     is CategoryState.Error -> {
                         Text(text = "Error: ${state.message}")
@@ -95,4 +102,26 @@ fun CategoryScreenContent(
             }
         }
     )
+
+    if (showAddDialog) {
+        AddCategoryDialog(
+            onConfirmAdd = { newCategory ->
+                onAddCategory(newCategory)
+                showAddDialog = false
+            },
+            onDismiss = { showAddDialog = false }
+        )
+    }
+
+    if (showDeleteDialog) {
+        DeleteDialog(
+            title = "Delete Category",
+            description = "Are you sure you want to delete the category \"${categoryToDelete}\"?",
+            onConfirm = {
+                onRemoveCategory(categoryToDelete)
+                showDeleteDialog = false
+            },
+            onDismiss = { showDeleteDialog = false }
+        )
+    }
 }
