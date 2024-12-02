@@ -19,18 +19,17 @@ import androidx.compose.ui.Modifier
 fun CategoryDropdown(
     categories: List<String>,
     selectedCategory: String?,
-    onCategorySelected: (String) -> Unit,
+    onCategorySelected: (String?) -> Unit,
     label: String = "Category",
     modifier: Modifier = Modifier
 ) {
     var expanded by remember { mutableStateOf(false) }
-
     ExposedDropdownMenuBox(
         expanded = expanded,
         onExpandedChange = { expanded = !expanded }
     ) {
         OutlinedTextField(
-            value = selectedCategory ?: "",
+            value = selectedCategory ?: "All",
             onValueChange = {},
             readOnly = true,
             label = { Text(label) },
@@ -41,10 +40,18 @@ fun CategoryDropdown(
                 .fillMaxWidth()
                 .menuAnchor()
         )
+
         ExposedDropdownMenu(
             expanded = expanded,
             onDismissRequest = { expanded = false }
         ) {
+            DropdownMenuItem(
+                text = { Text(text = "All") },
+                onClick = {
+                    onCategorySelected(null)
+                    expanded = false
+                }
+            )
             categories.forEach { category ->
                 DropdownMenuItem(
                     text = { Text(text = category) },
@@ -57,3 +64,4 @@ fun CategoryDropdown(
         }
     }
 }
+
