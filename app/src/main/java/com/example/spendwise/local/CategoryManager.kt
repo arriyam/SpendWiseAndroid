@@ -3,6 +3,7 @@ package com.example.spendwise.local
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
+import com.example.spendwise.provider.DefaultCategoryProvider
 
 class CategoryManager(app: Application) {
     private val sharedPreferences: SharedPreferences =
@@ -15,39 +16,24 @@ class CategoryManager(app: Application) {
         if (!isInitialized()) {
             initializeDefaultCategories()
         }
-        return sharedPreferences.getStringSet(categoriesKey, getDefaultCategories())?.toList()
-            ?.sorted() ?: getDefaultCategories().toList()
+        return sharedPreferences.getStringSet(categoriesKey, DefaultCategoryProvider.getCategories())?.toList()
+            ?.sorted() ?: DefaultCategoryProvider.getCategories().toList()
     }
 
     fun addCategory(category: String) {
-        val categories = sharedPreferences.getStringSet(categoriesKey, getDefaultCategories())?.toMutableSet()
+        val categories = sharedPreferences.getStringSet(categoriesKey, DefaultCategoryProvider.getCategories())?.toMutableSet()
             ?: mutableSetOf()
         categories.add(category)
         sharedPreferences.edit().putStringSet(categoriesKey, categories).apply()
     }
 
     fun removeCategory(category: String) {
-        val categories = sharedPreferences.getStringSet(categoriesKey, getDefaultCategories())?.toMutableSet()
+        val categories = sharedPreferences.getStringSet(categoriesKey, DefaultCategoryProvider.getCategories())?.toMutableSet()
             ?: mutableSetOf()
         categories.remove(category)
         sharedPreferences.edit().putStringSet(categoriesKey, categories).apply()
     }
 
-    private fun getDefaultCategories(): Set<String> {
-        return setOf(
-            "Rent",
-            "Utilities",
-            "Groceries",
-            "Restaurants",
-            "Outside Food",
-            "Entertainment",
-            "Subscriptions",
-            "Travelling Costs",
-            "Education",
-            "Hygiene",
-            "Other"
-        )
-    }
 
     private fun isInitialized(): Boolean {
         return sharedPreferences.getBoolean(isInitializedKey, false)
@@ -55,7 +41,7 @@ class CategoryManager(app: Application) {
 
     private fun initializeDefaultCategories() {
         sharedPreferences.edit()
-            .putStringSet(categoriesKey, getDefaultCategories())
+            .putStringSet(categoriesKey, DefaultCategoryProvider.getCategories())
             .putBoolean(isInitializedKey, true)
             .apply()
     }

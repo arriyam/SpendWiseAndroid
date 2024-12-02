@@ -41,7 +41,9 @@ fun SpendWiseScaffold(
             SpendWiseNavGraph(
                 navController = navController,
                 startDestination = NavigationRoute.TransactionListScreen,
-                modifier = Modifier.padding(innerPadding)
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(innerPadding)
             )
         }
     )
