@@ -23,11 +23,13 @@ val appModule = module {
         ).build()
     }
 
-    single<TransactionDao> { get<AppDatabase>().transactionDao() }
     single { CategoryManager(androidApplication()) }
     single { TransactionYearManager(androidApplication()) }
+
+    single<TransactionDao> { get<AppDatabase>().transactionDao() }
     single<TransactionRepository> { TransactionRepositoryImpl(get()) }
+
     viewModel { CategoryViewModel(get()) }
     viewModel { AddTransactionViewModel(get(),get()) }
-    viewModel { TransactionListViewModel() }
+    viewModel { TransactionListViewModel(get(),get()) }
 }

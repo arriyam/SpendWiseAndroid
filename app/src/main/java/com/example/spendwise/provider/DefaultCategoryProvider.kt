@@ -13,7 +13,7 @@ object DefaultCategoryProvider {
             "Travelling Costs",
             "Education",
             "Hygiene",
-            "Other"
+            "Other",
         )
     }
 }
