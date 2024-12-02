@@ -1,6 +1,5 @@
 package com.example.spendwise.di
 
-import android.content.Context
 import androidx.room.Room
 import com.example.spendwise.local.AppDatabase
 import com.example.spendwise.local.CategoryManager
@@ -8,15 +7,16 @@ import com.example.spendwise.local.TransactionDao
 import com.example.spendwise.local.TransactionYearManager
 import com.example.spendwise.repository.TransactionRepository
 import com.example.spendwise.repository.TransactionRepositoryImpl
-import com.example.spendwise.viewmodel.SummaryViewModel
+import com.example.spendwise.viewmodel.AddViewModel
+import com.example.spendwise.viewmodel.CategoryViewModel
 import org.koin.android.ext.koin.androidApplication
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 
 val appModule = module {
-    single { (context: Context) ->
+    single {
         Room.databaseBuilder(
-            context.applicationContext,
+            androidApplication(),
             AppDatabase::class.java,
             "app_database"
         ).build()
@@ -24,7 +24,8 @@ val appModule = module {
 
     single<TransactionDao> { get<AppDatabase>().transactionDao() }
     single { CategoryManager(androidApplication()) }
-    single { TransactionYearManager(get()) }
+    single { TransactionYearManager(androidApplication()) }
     single<TransactionRepository> { TransactionRepositoryImpl(get()) }
-    viewModel { SummaryViewModel() }
+    viewModel { CategoryViewModel() }
+    viewModel { AddViewModel() }
 }
